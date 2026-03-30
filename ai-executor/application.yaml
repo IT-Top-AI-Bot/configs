@@ -1,0 +1,118 @@
+spring:
+  application:
+    name: ai-executor
+
+  threads:
+    virtual:
+      enabled: true
+
+  jackson:
+    default-property-inclusion: non_null
+    deserialization:
+      fail-on-unknown-properties: false
+
+  ai:
+    mistralai:
+      api-key: ${MISTRALAI_API_KEY}
+      chat:
+        options:
+          model: ${MISTRAL_MODEL:mistral-medium-2508}
+          max-tokens: ${MISTRAL_MAX_TOKENS:16384}
+      vision:
+        model: ${MISTRAL_VISION_MODEL:mistral-medium-2508}
+        temperature: ${MISTRAL_VISION_TEMPERATURE:0.2}
+
+  cloud:
+    aws:
+      s3:
+        endpoint: ${S3_ENDPOINT}
+        region: ${S3_REGION:us-east-1}
+        path-style-access-enabled: true
+      credentials:
+        access-key: ${S3_ACCESS_KEY}
+        secret-key: ${S3_SECRET_KEY}
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/it_top_executor}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:29092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        max.request.size: 5242880
+    consumer:
+      group-id: ai-executor
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 10
+      properties:
+        max.poll.interval.ms: 600000
+    listener:
+      ack-mode: manual
+
+server:
+  port: ${SERVER_PORT:8080}
+
+kafka:
+  homework-execution-topic: homework-execution
+  homework-result-topic: homework-result
+  homework-execution-dlq-topic: homework-execution.DLQ
+
+s3:
+  bucket: ${S3_BUCKET:homeworks-solutions}
+
+it-top-ai:
+  base-url: ${IT_TOP_AI_BASE_URL:http://localhost:8080}
+
+homework:
+  download:
+    allowed-hosts: ${HOMEWORK_DOWNLOAD_ALLOWED_HOSTS:localhost,127.0.0.1,*.top-academy.ru}
+    connect-timeout: ${HOMEWORK_DOWNLOAD_CONNECT_TIMEOUT:5s}
+    read-timeout: ${HOMEWORK_DOWNLOAD_READ_TIMEOUT:30s}
+    max-file-size: ${HOMEWORK_DOWNLOAD_MAX_FILE_SIZE:20MB}
+
+resilience4j:
+  ratelimiter:
+    instances:
+      mistral-rps:
+        limitForPeriod: 1
+        limitRefreshPeriod: 5s
+        timeoutDuration: 60s
+        eventConsumerBufferSize: 100
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,metrics,prometheus"
+  tracing:
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/traces
+    logging:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs
+  otlp:
+    metrics:
+      export:
+        url: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics
