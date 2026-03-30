@@ -1,0 +1,28 @@
+spring:
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  kafka:
+    consumer:
+      group-id: journal-service-dev
+
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+kafka:
+  homework-execution-topic: homework-execution-dev
+  homework-execution-result: homework-result-dev
+
+auto-homework:
+  check-interval-ms: 900000
+
+s3:
+  bucket: homeworks-solutions-dev
+
+server:
+  port: 8080
+  shutdown: graceful

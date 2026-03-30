@@ -24,7 +24,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    #    show-sql: true
     properties:
       hibernate:
         format_sql: true
@@ -54,6 +53,9 @@ spring:
       password: ${REDIS_PASSWORD:}
       timeout: 60000
 
+  cache:
+    type: redis
+
 resilience4j:
   ratelimiter:
     instances:
@@ -65,7 +67,7 @@ resilience4j:
 journal:
   api:
     base-url: "https://msapi.top-academy.ru/api/v2"
-    application-key: 6a56a5df2667e65aab73ce76d1dd737f7d1faef9c52e8b8c55ac75f565d8e8a6
+    application-key: ${APPLICATION_KEY}
     user-agent: "itt-journal-service/1.0"
     journal-url: "https://journal.top-academy.ru"
     timeout:
@@ -81,14 +83,8 @@ kafka:
   homework-execution-topic: homework-execution
   homework-execution-result: homework-result
 
-outbox:
-  batch-size: 100
-  max-attempts: 5
-  retry-delay-seconds: 60
-  relay-interval-ms: 5000
-
 auto-homework:
-  check-interval-ms: 21600000 # 6 часов
+  check-interval-ms: 900000
 
 s3:
   bucket: homeworks-solutions
@@ -96,27 +92,29 @@ s3:
 crypto:
   secret-key: ${ENCRYPTION_KEY}
 
-logging:
-  pattern:
-    correlation: "[%X{traceId:-} ${spring.application.name}] "
-  level:
-    com.aquadev.journalservice: DEBUG
-    org.springframework.web: INFO
-    org.springframework.web.client: DEBUG
-
-server:
-  port: ${SERVER_PORT:8080}
-
 management:
   tracing:
     sampling:
       probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: when-authorized
   opentelemetry:
     tracing:
       export:
         otlp:
-          endpoint: http://localhost:4318/v1/traces
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/traces
+    logging:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs
   otlp:
     metrics:
       export:
-        enabled: false
+        url: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics
