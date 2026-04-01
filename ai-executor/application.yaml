@@ -86,6 +86,11 @@ homework:
     read-timeout: ${HOMEWORK_DOWNLOAD_READ_TIMEOUT:30s}
     max-file-size: ${HOMEWORK_DOWNLOAD_MAX_FILE_SIZE:20MB}
 
+mistral:
+  http:
+    connect-timeout: ${MISTRAL_CONNECT_TIMEOUT:10s}
+    read-timeout: ${MISTRAL_READ_TIMEOUT:120s}
+
 resilience4j:
   ratelimiter:
     instances:
