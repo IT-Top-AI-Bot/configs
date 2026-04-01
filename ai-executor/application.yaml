@@ -16,10 +16,10 @@ spring:
       api-key: ${MISTRALAI_API_KEY}
       chat:
         options:
-          model: ${MISTRAL_MODEL:mistral-medium-2508}
+          model: ${MISTRAL_MODEL:mistral-medium-latest}
           max-tokens: ${MISTRAL_MAX_TOKENS:16384}
       vision:
-        model: ${MISTRAL_VISION_MODEL:mistral-medium-2508}
+        model: ${MISTRAL_VISION_MODEL:mistral-medium-latest}
         temperature: ${MISTRAL_VISION_TEMPERATURE:0.2}
 
   cloud:
@@ -90,6 +90,9 @@ mistral:
   http:
     connect-timeout: ${MISTRAL_CONNECT_TIMEOUT:10s}
     read-timeout: ${MISTRAL_READ_TIMEOUT:120s}
+    proxy:
+      host: ${MISTRAL_PROXY_HOST:}
+      port: ${MISTRAL_PROXY_PORT:0}
 
 resilience4j:
   ratelimiter:
