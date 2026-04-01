@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: executor
+              uri: lb://ai-executor-dev
+              predicates:
+                - Path=/api/v1/subject-prompts/**
+            - id: journal-service
+              uri: lb://journal-service-dev
+              predicates:
+                - Path=/**
+
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+server:
+  port: 8080
+  shutdown: graceful

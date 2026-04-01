@@ -1,0 +1,24 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+server:
+  port: 8080
+  shutdown: graceful
+
+kafka:
+  homework-execution-topic: homework-execution-dev
+  homework-result-topic: homework-result-dev
+  homework-execution-dlq-topic: homework-execution-dev.DLQ
+
+s3:
+  bucket: homeworks-solutions-dev
+
+it-top-ai:
+  base-url: http://api-gateway-dev.dev.svc.cluster.local:8080

@@ -1,0 +1,33 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 3
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      leak-detection-threshold: 30000
+
+  lifecycle:
+    timeout-per-shutdown-phase: 60s
+
+  kafka:
+    consumer:
+      group-id: ai-executor-prod
+
+server:
+  port: 8080
+  shutdown: graceful
+
+management:
+  tracing:
+    sampling:
+      probability: 0.1
+
+it-top-ai:
+  base-url: http://api-gateway-prod.prod.svc.cluster.local:8080
