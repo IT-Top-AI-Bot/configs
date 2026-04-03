@@ -23,6 +23,14 @@ server:
   port: ${SERVER_PORT:8080}
   shutdown: graceful
 
+admin:
+  telegram-ids: ${ADMIN_TELEGRAM_IDS:}
+  services:
+    - name: telegram-bot
+      actuator-url: http://localhost:${SERVER_PORT:8080}
+    - name: journal-service
+      actuator-url: ${BACKEND_BASE_URL}
+
 management:
   endpoint:
     health:
@@ -39,7 +47,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus
+        include: health,info,metrics,prometheus,refresh
   opentelemetry:
     tracing:
       export:
