@@ -29,5 +29,10 @@ management:
     sampling:
       probability: 0.1
 
+ai:
+  default-provider: GEMINI
+  fallback-providers:
+    - MISTRAL
+
 it-top-ai:
   base-url: http://api-gateway-prod.prod.svc.cluster.local:8080

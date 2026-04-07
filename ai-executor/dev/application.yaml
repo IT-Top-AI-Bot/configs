@@ -20,5 +20,10 @@ kafka:
 s3:
   bucket: homeworks-solutions-dev
 
+ai:
+  default-provider: GEMINI
+  fallback-providers:
+    - MISTRAL
+
 it-top-ai:
   base-url: http://api-gateway-dev.dev.svc.cluster.local:8080

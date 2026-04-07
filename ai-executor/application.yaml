@@ -12,6 +12,9 @@ spring:
       fail-on-unknown-properties: false
 
   ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
     mistralai:
       api-key: ${MISTRALAI_API_KEY}
       chat:
