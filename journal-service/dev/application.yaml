@@ -28,3 +28,22 @@ s3:
 server:
   port: 8080
   shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    env:
+      show-values: always
+    configprops:
+      show-values: always
+
+logging:
+  level:
+    com.aquadev: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
