@@ -15,6 +15,12 @@ spring:
     google:
       genai:
         api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: ${GEMINI_MODEL:gemini-3.1-flash-lite-preview}
+        vision:
+          model: ${GEMINI_VISION_MODEL:gemini-3.1-flash-lite-preview}
+          temperature: ${GEMINI_VISION_TEMPERATURE:0.2}
     mistralai:
       api-key: ${MISTRALAI_API_KEY}
       chat:
@@ -36,9 +42,9 @@ spring:
         secret-key: ${S3_SECRET_KEY}
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/it_top_executor}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:it_top_executor}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -97,13 +103,27 @@ mistral:
       host: ${MISTRAL_PROXY_HOST:}
       port: ${MISTRAL_PROXY_PORT:0}
 
+ai:
+  gemini:
+    http:
+      connect-timeout: ${GEMINI_CONNECT_TIMEOUT:10s}
+      read-timeout: ${GEMINI_READ_TIMEOUT:120s}
+      proxy:
+        host: ${GEMINI_PROXY_HOST:}
+        port: ${GEMINI_PROXY_PORT:0}
+
 resilience4j:
   ratelimiter:
     instances:
       mistral-rps:
-        limitForPeriod: 1
-        limitRefreshPeriod: 5s
+        limitForPeriod: 25
+        limitRefreshPeriod: 60s
         timeoutDuration: 60s
+        eventConsumerBufferSize: 100
+      gemini-rps:
+        limitForPeriod: 5
+        limitRefreshPeriod: 1s
+        timeoutDuration: 10s
         eventConsumerBufferSize: 100
 
 management:
