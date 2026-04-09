@@ -110,6 +110,20 @@ ai:
       proxy-port: ${GEMINI_PROXY_PORT:0}
 
 resilience4j:
+  retry:
+    instances:
+      mistral-ocr:
+        max-attempts: 3
+        wait-duration: 2s
+        exponential-backoff-multiplier: 2
+        retry-exceptions:
+          - org.springframework.ai.retry.TransientAiException
+      gemini-ocr:
+        max-attempts: 3
+        wait-duration: 2s
+        exponential-backoff-multiplier: 2
+        retry-exceptions:
+          - org.springframework.ai.retry.TransientAiException
   ratelimiter:
     instances:
       mistral-rps:
