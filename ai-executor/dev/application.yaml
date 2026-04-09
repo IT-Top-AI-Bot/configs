@@ -24,17 +24,14 @@ ai:
   default-provider: GEMINI
   fallback-providers:
     - MISTRAL
+  mistral:
+    http:
+      proxy-host: "192.168.0.148"
+      proxy-port: 7890
   gemini:
     http:
-      proxy:
-        host: "192.168.0.221"
-        port: 7890
-
-mistral:
-  http:
-    proxy:
-      host: "192.168.0.148"
-      port: 7890
+      proxy-host: "192.168.0.221"
+      proxy-port: 7890
 
 it-top-ai:
   base-url: http://api-gateway-dev.dev.svc.cluster.local:8080

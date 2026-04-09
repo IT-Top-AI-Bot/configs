@@ -95,22 +95,19 @@ homework:
     read-timeout: ${HOMEWORK_DOWNLOAD_READ_TIMEOUT:30s}
     max-file-size: ${HOMEWORK_DOWNLOAD_MAX_FILE_SIZE:20MB}
 
-mistral:
-  http:
-    connect-timeout: ${MISTRAL_CONNECT_TIMEOUT:10s}
-    read-timeout: ${MISTRAL_READ_TIMEOUT:120s}
-    proxy:
-      host: ${MISTRAL_PROXY_HOST:}
-      port: ${MISTRAL_PROXY_PORT:0}
-
 ai:
+  mistral:
+    http:
+      connect-timeout: ${MISTRAL_CONNECT_TIMEOUT:10s}
+      read-timeout: ${MISTRAL_READ_TIMEOUT:120s}
+      proxy-host: ${MISTRAL_PROXY_HOST:}
+      proxy-port: ${MISTRAL_PROXY_PORT:0}
   gemini:
     http:
       connect-timeout: ${GEMINI_CONNECT_TIMEOUT:10s}
       read-timeout: ${GEMINI_READ_TIMEOUT:120s}
-      proxy:
-        host: ${GEMINI_PROXY_HOST:}
-        port: ${GEMINI_PROXY_PORT:0}
+      proxy-host: ${GEMINI_PROXY_HOST:}
+      proxy-port: ${GEMINI_PROXY_PORT:0}
 
 resilience4j:
   ratelimiter:
