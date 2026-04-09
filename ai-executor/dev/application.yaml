@@ -21,9 +21,9 @@ s3:
   bucket: homeworks-solutions-dev
 
 ai:
-  default-provider: MISTRAL
+  default-provider: GEMINI
   fallback-providers:
-    - GEMINI
+    - MISTRAL
   mistral:
     http:
       proxy-host: "192.168.0.148"
