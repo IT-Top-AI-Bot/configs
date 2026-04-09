@@ -25,10 +25,10 @@ spring:
       api-key: ${MISTRALAI_API_KEY}
       chat:
         options:
-          model: ${MISTRAL_MODEL:mistral-large-2411}
+          model: ${MISTRAL_MODEL:mistral-small-2603}
           max-tokens: ${MISTRAL_MAX_TOKENS:16384}
       vision:
-        model: ${MISTRAL_VISION_MODEL:mistral-large-2411}
+        model: ${MISTRAL_VISION_MODEL:mistral-small-2603}
         temperature: ${MISTRAL_VISION_TEMPERATURE:0.2}
 
   cloud:
