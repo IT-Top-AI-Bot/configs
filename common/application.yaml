@@ -1,0 +1,6 @@
+management:
+  observations:
+    enable:
+      spring:
+        security:
+          filterchains: false
