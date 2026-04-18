@@ -83,6 +83,7 @@ journal:
 kafka:
   homework-execution-topic: homework-execution
   homework-execution-result: homework-result
+  journal-credentials-invalid-topic: journal-credentials-invalid
 
 auto-homework:
   check-interval-ms: 900000
@@ -111,11 +112,15 @@ management:
       export:
         otlp:
           endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/traces
+          timeout: 30s
     logging:
       export:
         otlp:
           endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs
+          timeout: 30s
   otlp:
     metrics:
       export:
         url: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics
+        connect-timeout: 5s
+        read-timeout: 30s
