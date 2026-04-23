@@ -29,6 +29,10 @@ server:
   port: 8080
   shutdown: graceful
 
+journal:
+  api:
+    base-url: "https://mock-journal.dev.actimate.ru/api/v2"
+
 management:
   endpoints:
     web:

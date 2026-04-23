@@ -83,7 +83,7 @@ journal:
 kafka:
   homework-execution-topic: homework-execution
   homework-execution-result: homework-result
-  journal-credentials-invalid-topic: journal-credentials-invalid
+  notifications-topic: notifications
 
 auto-homework:
   check-interval-ms: 900000
