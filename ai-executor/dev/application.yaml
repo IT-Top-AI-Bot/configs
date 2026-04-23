@@ -26,12 +26,29 @@ ai:
     - MISTRAL
   mistral:
     http:
-      proxy-host: "192.168.0.148"
+      proxy-host: "vpn.internal"
       proxy-port: 7890
   gemini:
     http:
-      proxy-host: "192.168.0.221"
+      proxy-host: "vpn.internal"
       proxy-port: 7890
 
 it-top-ai:
   base-url: http://api-gateway-dev.dev.svc.cluster.local:8080
+
+homework:
+  download:
+    allowed-hosts: localhost,127.0.0.1,*.top-academy.ru,s3.actimate.ru
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    env:
+      show-values: always
+    configprops:
+      show-values: always
