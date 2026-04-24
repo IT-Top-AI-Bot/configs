@@ -1,9 +1,16 @@
 spring:
+  data:
+    redis:
+      database: 1
 
   jpa:
     properties:
       hibernate:
         format_sql: false
+
+  kafka:
+    consumer:
+      group-id: journal-service
 
   datasource:
     hikari:
@@ -13,6 +20,13 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800000
       leak-detection-threshold: 30000
+
+kafka:
+  homework-execution-topic: homework-execution
+  homework-execution-result: homework-result
+
+s3:
+  bucket: homeworks-solutions
 
 management:
   tracing:
