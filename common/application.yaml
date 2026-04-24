@@ -4,3 +4,8 @@ management:
       spring:
         security:
           filterchains: false
+
+logging:
+  level:
+    io.micrometer.registry.otlp.OtlpMeterRegistry: OFF
+    io.opentelemetry.exporter.internal.http.HttpExporter: OFF
