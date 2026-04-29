@@ -29,7 +29,7 @@ admin:
     - name: telegram-bot
       actuator-url: http://localhost:${SERVER_PORT:8080}
     - name: journal-service
-      actuator-url: ${BACKEND_BASE_URL}
+      actuator-url: ${JOURNAL_SERVICE_ACTUATOR_URL:${BACKEND_BASE_URL}}
 
 management:
   endpoint:
@@ -53,11 +53,15 @@ management:
       export:
         otlp:
           endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/traces
+          timeout: 30s
     logging:
       export:
         otlp:
           endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs
+          timeout: 30s
   otlp:
     metrics:
       export:
         url: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics
+        connect-timeout: 5s
+        read-timeout: 30s
