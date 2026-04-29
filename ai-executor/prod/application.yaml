@@ -24,6 +24,18 @@ server:
   port: 8080
   shutdown: graceful
 
+homework:
+  download:
+    allowed-hosts: localhost,127.0.0.1,*.top-academy.ru,s3.actimate.ru
+
+s3:
+  bucket: homeworks-solutions-
+
+kafka:
+  homework-execution-topic: homework-execution
+  homework-result-topic: homework-result
+  homework-execution-dlq-topic: homework-execution.DLQ
+
 management:
   tracing:
     sampling:
@@ -33,6 +45,14 @@ ai:
   default-provider: GEMINI
   fallback-providers:
     - MISTRAL
+  mistral:
+    http:
+      proxy-host: "vpn.internal"
+      proxy-port: 7890
+  gemini:
+    http:
+      proxy-host: "vpn.internal"
+      proxy-port: 7890
 
 it-top-ai:
   base-url: http://api-gateway-prod.prod.svc.cluster.local:8080

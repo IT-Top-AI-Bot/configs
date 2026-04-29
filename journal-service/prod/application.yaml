@@ -28,6 +28,10 @@ kafka:
 s3:
   bucket: homeworks-solutions
 
+journal:
+  api:
+    base-url: "https://msapi.top-academy.ru/api/v2"
+
 management:
   tracing:
     sampling:

@@ -14,7 +14,7 @@ spring:
                 - Path=/**
 
   lifecycle:
-    timeout-per-shutdown-phase: 60s
+    timeout-per-shutdown-phase: 30s
 
 server:
   port: 8080
