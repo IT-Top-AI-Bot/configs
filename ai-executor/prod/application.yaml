@@ -29,7 +29,7 @@ homework:
     allowed-hosts: localhost,127.0.0.1,*.top-academy.ru,s3.actimate.ru
 
 s3:
-  bucket: homeworks-solutions-
+  bucket: homeworks-solutions-prod
 
 kafka:
   homework-execution-topic: homework-execution
