@@ -47,11 +47,11 @@ ai:
     - MISTRAL
   mistral:
     http:
-      proxy-host: "vpn.internal"
+      proxy-host: "192.168.0.148"
       proxy-port: 7890
   gemini:
     http:
-      proxy-host: "vpn.internal"
+      proxy-host: "192.168.0.148"
       proxy-port: 7890
 
 it-top-ai:
